@@ -96,6 +96,7 @@ code will need to be manipulated to get the results. So, for example, we could
 do something like this:
 
 ```sql
+-- ignore
 DECLARE @Id int = 1;
 -- start
 SELECT TOP 1
@@ -113,6 +114,12 @@ OUTER APPLY (
 ) film
 WHERE t.actor_id = @Id;
 ```
+
+The SQL comment `-- ignore` would be used for when you would like the back end
+to fill in the value. In this example we would not want the front end to
+actually provide the user ID otherwise they would have access to all users!
+Another option would be to use `Row-wise Security` in SQL Server then you
+wouldn't even need to declare the variable!
 
 The SQL comment `-- start` would let the parser know that everything before
 that point won't be including in the parsing - but those values would be
