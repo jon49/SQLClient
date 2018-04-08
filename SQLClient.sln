@@ -5,7 +5,12 @@ VisualStudioVersion = 15.0.27428.2011
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLClient", "SQLClient\SQLClient.csproj", "{28642587-841A-4154-A2D1-12C17D715D8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLClient.Tests", "SQLClient.Tests\SQLClient.Tests.csproj", "{60BDB097-CFF7-4B4F-B44F-B7BE240F4DFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLClient.Tests", "SQLClient.Tests\SQLClient.Tests.csproj", "{60BDB097-CFF7-4B4F-B44F-B7BE240F4DFD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{346C1EBC-A2CA-4126-BD42-C13C71DBFA95}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
