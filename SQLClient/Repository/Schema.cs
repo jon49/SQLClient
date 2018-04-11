@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
+using SQLClient.Models;
 
 namespace SQLClient.Repository
 {
