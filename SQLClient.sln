@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SQLClient.Models", "SQLClient.Models\SQLClient.Models.fsproj", "{D7437802-D6CD-4F8F-981D-777655531225}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{60BDB097-CFF7-4B4F-B44F-B7BE240F4DFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60BDB097-CFF7-4B4F-B44F-B7BE240F4DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60BDB097-CFF7-4B4F-B44F-B7BE240F4DFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7437802-D6CD-4F8F-981D-777655531225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7437802-D6CD-4F8F-981D-777655531225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7437802-D6CD-4F8F-981D-777655531225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7437802-D6CD-4F8F-981D-777655531225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
