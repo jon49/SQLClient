@@ -9,23 +9,6 @@ namespace SQLClient.Repository
 {
     public class Schema
     {
-
-        public class FirstResultSet
-        {
-            public FirstResultSet(int columnOrdinal, string columnName, bool isNullable, string systemTypeName)
-            {
-                ColumnOrdinal = columnOrdinal;
-                ColumnName = columnName;
-                IsNullable = isNullable;
-                SystemTypeName = systemTypeName;
-            }
-
-            public int ColumnOrdinal { get; private set; }
-            public string ColumnName { get; private set; }
-            public bool IsNullable { get; private set; }
-            public string SystemTypeName { get; private set; }
-        }
-
         public Func<string, Task<IEnumerable<FirstResultSet>>> GetFirstResultSet(SqlConnection connection)
             => (string query)
             => connection.QueryAsync<FirstResultSet>(@"
@@ -41,14 +24,6 @@ namespace SQLClient.Repository
                 FROM sys.dm_exec_describe_first_result_set(@Query, null, 1) t
                 WHERE t.is_hidden = 0;
                 ", new { query });
-
-
-        public class UndeclaredParameter
-        {
-            public string Name { get; set; }
-            public string DbType { get; set; }
-            public Int16 Length { get; set; }
-        }
 
         public Func<string, Task<IEnumerable<UndeclaredParameter>>> GetUndeclaredParameters(SqlConnection connection)
             => (string query)
