@@ -2,33 +2,39 @@
 using SQLClient.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
+using System.Linq;
 using Xunit;
 using Xunit.Abstractions;
-using static SQLClient.Repository.Schema;
 
 namespace SQLClient.Tests
 {
     public class ConvertTests
     {
-        private readonly ITestOutputHelper output;
+        private readonly string QueryText;
 
-        public ConvertTests(ITestOutputHelper output)
+        public ConvertTests()
         {
-            this.output = output;
         }
 
         private Namespace GetNamespace()
             => new Namespace
-            {
-                Name = "Films",
-                DMLs = new[]
+            (
+                name: "Films",
+                dMLs: new[]
                 {
                     new DML
-                    {
-                        CleanedQueryText = @"",
-                        FirstResultSets = new[]
+                    (
+                        methodName: "GetMyFilm",
+                        cleanedQueryText: @"",
+                        queryText: @"
+SELECT t.film_id, t.[description], t.[length]
+FROM dbo.film t
+WHERE t.film_id = @Id;
+",
+                        xMLSchema: "",
+                        parameters: new List<UndeclaredParameter>{ },
+                        guid: new Guid(),
+                        firstResultSets: new[]
                         {
                             new FirstResultSet
                             (
@@ -52,9 +58,9 @@ namespace SQLClient.Tests
                                 systemTypeName: "smallint"
                             )
                         }
-                    }
+                    )
                 }
-            };
+            );
 
         [Fact] public void FromDbTypeMethodReturns_ANumber() { Assert.Equal("number", TypeScript.FromDbType("bigint")); }
         [Fact] public void FromDbTypeMethodReturns_AString() { Assert.Equal("string", TypeScript.FromDbType("binary")); }
@@ -66,12 +72,27 @@ namespace SQLClient.Tests
         [Fact] public void ToPropertyShouldBeQuotedForKeysBeginningWithANumber() { Assert.Equal(@"""5films""?: string", TypeScript.ToProperty("5films", "varchar", true)); }
         [Fact] public void ToPropertyShouldNotBeQuotedForAlphanumericKeys() { Assert.Equal(@"film5?: string", TypeScript.ToProperty("film5", "nvarchar", true)); }
 
-        [Fact]
-        public void CorrectlyCreatesNamespace()
+        [Fact] public void ToPropertiesShouldReturnAListOfProperties()
+        {
+            var space = GetNamespace();
+            var actual = TypeScript.ToProperties(space.DMLs.First().FirstResultSets);
+            var expected = "        film_id: number\n        description?: string\n        length?: number";
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact] public void ToInterfaceShouldReturnAnInterface()
+        {
+            var dml = GetNamespace().DMLs.First();
+            var actual = TypeScript.ToInterface(dml.MethodName, dml.FirstResultSets);
+            var expected = "    interface GetMyFilm {\r\n        film_id: number\n        description?: string\n        length?: number\r\n    }";
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact] public void CorrectlyCreatesNamespace()
         {
             var actual = TypeScript.ToInterfaces(GetNamespace());
-            output.WriteLine(actual);
-            Assert.Equal("", actual);
+            var expected = "namespace Films {\n    interface GetMyFilm {\r\n        film_id: number\n        description?: string\n        length?: number\r\n    }\n}";
+            Assert.Equal(expected, actual);
         }
 
     }
