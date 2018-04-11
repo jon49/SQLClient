@@ -69,11 +69,11 @@ namespace SQLClient.Convert
             var interfaceDeclaration = $@"{spaces}interface {methodName} {{
 {ToProperties(firstResultSet)}
 {spaces}}}";
-            return "";
+            return interfaceDeclaration;
         }
 
         public static string ToInterfaces(Namespace space)
-            => $@"namespace {space.Name} {{\n{String.Join('\n', space.DMLs.Select(x => ToInterface(x.MethodName, x.FirstResultSets)))}\n}}";
+            => $"namespace {space.Name} {{\n{String.Join('\n', space.DMLs.Select(x => ToInterface(x.MethodName, x.FirstResultSets)))}\n}}";
 
     }
 }
